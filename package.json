@@ -1,9 +1,9 @@
 {
   "name": "websockets",
   "version": "1.0.0",
-  "description": "",
   "main": "socket-server.js",
   "dependencies": {
+    "mongoose": "^4.11.13",
     "socket.io": "^2.0.3"
   },
   "devDependencies": {},
@@ -11,5 +11,14 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eshrinivasan/websockets.git"
+  },
+  "bugs": {
+    "url": "https://github.com/eshrinivasan/websockets/issues"
+  },
+  "homepage": "https://github.com/eshrinivasan/websockets#readme",
+  "description": ""
 }
