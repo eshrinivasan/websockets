@@ -28,7 +28,7 @@ var server = http.createServer(function(req, res) {
 });
 
 
-server.listen(3000);
+server.listen(process.env.PORT || 3000);
 
 // Create a Socket.IO instance, passing it our server
 var socket = io.listen(server);
