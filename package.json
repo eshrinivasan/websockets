@@ -4,6 +4,7 @@
   "main": "socket-server.js",
   "dependencies": {
     "finalhandler": "^1.1.0",
+    "mongo-sanitize": "^1.0.0",
     "mongoose": "^4.11.13",
     "serve-static": "^1.13.0",
     "socket.io": "^2.0.3"

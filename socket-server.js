@@ -6,6 +6,7 @@ var finalhandler = require('finalhandler');
 var serveStatic = require('serve-static');
 var serve = serveStatic("./");
 var mongoose = require('mongoose');
+var sanitize = require("mongo-sanitize");
 
 // Start the server at port 3000
 var server = http.createServer(function(req, res) {
@@ -41,7 +42,8 @@ socket.on('connection', function(client) {
     clientid = client.id;
 
     // Success!  Now listen to messages to be received
-    client.on('message', function(event) {
+    client.on('message', function(input) {
+        var event = sanitize(input);
         var newMsg = new Chat({ msg: '' + event, senderid: '' + clientid });
         newMsg.save(function(err){
             console.log('saved, err = ' + err);
