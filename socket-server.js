@@ -67,10 +67,12 @@ var chatSchema = mongoose.Schema({
 
 var Chat = mongoose.model('Message', chatSchema);
 
-mongoose.connect('mongodb://localhost:27017/chatdb', function(err) {
+//'mongodb://localhost:27017/chatdb'
+mongoose.connect(process.env.MONGODB_URI, function(err) {
     if (err) {
         console.log(err);
     } else {
         console.log('Connected to mongodb!');
     }
 });
+
