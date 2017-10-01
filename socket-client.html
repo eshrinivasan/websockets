@@ -69,21 +69,25 @@
   
     <div class="input">
         <input type="text" name="in" id="inputEl" />
-        <button type="submit" class="big-btn" onclick="sendInput()">send</button>
+        <button type="submit" id="sendButton" class="big-btn" onclick="sendInput()">send</button>
     </div>
 
     
     <ul id="message-list"></ul>
     <div id="activeConnection"></div>
+
     <script src="http://www.neelamegam.com/socket.io/socket.io.js"></script>
+    <script>
+        if (!window.io) document.write('<script src="http://localhost:3000/socket.io/socket.io.js"><\/script>');
+    </script>
     <script>
     // Create SocketIO instance
     // var socket = new io.Socket('localhost',{
     // 	port: 3000
     // });
     // socket.connect(); 
-
-    var socket = io.connect('http://www.neelamegam.com');
+    var host = window.location.href;
+    var socket = io.connect(host);
 
     // Add a connect listener
     socket.on('connect', function() {
@@ -125,6 +129,14 @@
         var invalue = document.getElementById('inputEl').value;
         sendMessageToServer(invalue);
     }
+
+    document.getElementById("inputEl")
+        .addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.keyCode == 13) {
+            document.getElementById("sendButton").click();
+        }
+    });
 
     /*
     // Create a socket instance

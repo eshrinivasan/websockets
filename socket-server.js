@@ -1,7 +1,7 @@
 // Require HTTP module (to start server) and Socket.IO
 var http = require('http'),
     fs = require('fs'),
-    io = require('socket.io');
+    io = require('socket.io')();
 var finalhandler = require('finalhandler');
 var serveStatic = require('serve-static');
 var serve = serveStatic("./");
@@ -35,11 +35,12 @@ server.listen(process.env.PORT || 3000);
 var socket = io.listen(server);
 var clients = 0;
 var clientid;
+var clients = 0;
 
 // Add a connect listener
 socket.on('connection', function(client) {
-    ++clients;
     clientid = client.id;
+    clients++;
 
     // Success!  Now listen to messages to be received
     client.on('message', function(input) {
@@ -56,8 +57,9 @@ socket.on('connection', function(client) {
     socket.emit('ucount', clients + " active connections");
 
     client.on('disconnect', function() {
-        --clients;
+        clients--;
         console.log('Server has disconnected');
+        socket.emit('ucount', clients + " active connections");
     });
 });
 
@@ -68,8 +70,7 @@ var chatSchema = mongoose.Schema({
 });
 
 var Chat = mongoose.model('Message', chatSchema);
-
-var MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/chatdb';
+var MONGODB_URI = process.env.MONGODB_URI;
 
 mongoose.connect(MONGODB_URI, function(err) {
     if (err) {
